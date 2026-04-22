@@ -49,3 +49,8 @@ flutter:
   assets:
     - assets/images/
 ```
+
+### 2. Extract to method
+Use to separate into components
+- **_** : mean private
+Ex: _buildBody()
