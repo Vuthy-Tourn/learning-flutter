@@ -15,13 +15,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        clipBehavior: Clip.antiAlias,
-        child: SafeArea(child: Text("Hello data")),
-      ),
+      drawer: _buildDrawer(),
       body: _buildCenter(),
       appBar: AppBar(
-        leading: Icon(Icons.heart_broken),
+        // leading: Icon(Icons.heart_broken),
         shadowColor: Colors.indigo,
         title: Text(
           "Simple App",
@@ -31,14 +28,67 @@ class _MyHomePageState extends State<MyHomePage> {
             fontWeight: FontWeight.w900,
           ),
         ),
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon(Icons.shopping_cart)),
+          SizedBox(width: 10,)
+        ],
         centerTitle: false,
       ),
     );
   }
 
+  Drawer _buildDrawer() {
+    return Drawer(
+        // backgroundColor: Colors.blueGrey,
+        child: SafeArea(
+            child: Column(
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(color: Colors.blue),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white,width: 2),
+                            borderRadius: BorderRadius.circular(80),
+                            image: DecorationImage(image: AssetImage("assets/images/istockphoto-696063626-612x612.jpg",),fit: BoxFit.cover),
+                          ),
+                        ),
+                        SizedBox(width: 30,),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [Text("Vuthy Tourn",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
+                            Text("View profile")],)
+                      ],),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.home),
+                    title: Text("Home"),
+                    onTap: () {},
 
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text("setting"),
+                    onTap: () {},
+
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.wallet),
+                    title: Text("My Wallet"),
+                    onTap: () {},
+
+                  ),
+                ])
+        )
+    );
+  }
   Widget _buildCenter() {
-    return Center(
+    return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Image.network(url, height: 300, width: 300),
           _buildStack(),
+          Spacer(),
           Text(
             "Hello flutter",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
