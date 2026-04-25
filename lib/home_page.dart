@@ -15,26 +15,55 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: _buildDrawer(),
       body: _buildCenter(),
-      appBar: AppBar(
-        // leading: Icon(Icons.heart_broken),
-        shadowColor: Colors.indigo,
-        title: Text(
-          "Simple App",
-          style: TextStyle(
-            color: Colors.red,
-            fontSize: 16,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.shopping_cart)),
-          SizedBox(width: 10,)
-        ],
-        centerTitle: false,
-      ),
+      appBar: buildAppBar(),
+      bottomNavigationBar: buildBottomNavigationBar(),
+      floatingActionButton: buildFloatingActionButton(),
     );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      // leading: Icon(Icons.heart_broken),
+      shadowColor: Colors.indigo,
+      title: Text(
+        "Simple App",
+        style: TextStyle(
+          color: Colors.red,
+          fontSize: 16,
+          fontWeight: FontWeight.w900,
+        ),
+      ),
+      actions: [
+        IconButton(onPressed: (){}, icon: Icon(Icons.shopping_cart)),
+        SizedBox(width: 10,)
+      ],
+      centerTitle: false,
+    );
+  }
+
+  BottomNavigationBar buildBottomNavigationBar() {
+    return BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+
+        backgroundColor: Colors.green,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.white,),label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite, color: Colors.white,),label: "Favorite"),
+          BottomNavigationBarItem(icon: Icon(Icons.call_sharp, color: Colors.white,),label: "Call"),
+          BottomNavigationBarItem(icon: Icon(Icons.wallet, color: Colors.white,),label: "Wallet"),
+        ]
+    );
+  }
+
+  FloatingActionButton buildFloatingActionButton() {
+    return FloatingActionButton(
+
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      backgroundColor: Colors.green,
+      onPressed: (){},child: Icon(Icons.add,color: Colors.white),);
   }
 
   Drawer _buildDrawer() {
@@ -69,19 +98,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     leading: Icon(Icons.home),
                     title: Text("Home"),
                     onTap: () {},
-
                   ),
                   ListTile(
                     leading: Icon(Icons.settings),
                     title: Text("setting"),
                     onTap: () {},
-
                   ),
                   ListTile(
                     leading: Icon(Icons.wallet),
                     title: Text("My Wallet"),
                     onTap: () {},
-
+                  ),
+                  Spacer(),
+                  ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text("Logout"),
+                    onTap: () {},
                   ),
                 ])
         )
@@ -89,21 +121,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   Widget _buildCenter() {
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Image.network(url, height: 300, width: 300),
-          _buildStack(),
-          Spacer(),
-          Text(
-            "Hello flutter",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          _buildRow(),
-          Image.asset("assets/images/istockphoto-696063626-612x612.jpg", width: 300, height: 300,),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.network(url, height: 300, width: 300),
+            _buildStack(),
+            const SizedBox(height: 20),
+            const Text(
+              "Hello flutter",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            _buildRow(),
+            Image.asset(
+              "assets/images/istockphoto-696063626-612x612.jpg",
+              width: 300,
+              height: 300,
+            ),
+          ],
+        ),
       ),
     );
   }
