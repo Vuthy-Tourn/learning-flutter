@@ -12,8 +12,57 @@ class _MyHomePageState extends State<MyHomePage> {
   final url =
       "https://cdn.pixabay.com/photo/2020/02/15/16/09/loveourplanet-4851331_1280.jpg";
 
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadPage();
+  }
+
+  void _loadPage() {
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/logo.png",
+                width: 120,
+              ),
+
+              SizedBox(height: 20),
+
+              CircularProgressIndicator(color:Colors.green),
+
+              SizedBox(height: 15),
+
+              Text(
+                "Loading...",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: _buildDrawer(),
